@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      /* background-color: #40d9ff; */
+    }
+
+    .form-container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+      border: 3px solid #5d5e64;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(2, 2, 2, 0.2);
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="text"], input[type="tel"], input[type="email"] {
+      width: 95%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .checkbox-label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .checkbox-input {
+      margin-right: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #0e30a0;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    
+    <form id="surveyForm">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" required>
+      
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" required>
+      
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" required>
+      
+      <label for="country">Country:</label>
+      <select id="country" required>
+        <option value="">Select a country</option>
+        <option value="usa">USA</option>
+        <option value="canada">Canada</option>
+        <!-- Add more countries here -->
+      </select>
+      
+      <label>Gender:</label>
+      <label class="radio-label"><input type="radio" name="gender" value="male" class="radio-input" required> Male</label>
+      <label class="radio-label"><input type="radio" name="gender" value="female" class="radio-input" required> Female</label>
+      <label class="radio-label"><input type="radio" name="gender" value="other" class="radio-input" required> Other</label>
+      
+      
+      <label for="profession">Profession:</label>
+      <input type="text" id="profession" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      
+      <label for="mobile">Mobile Number:</label>
+      <input type="tel" id="mobile" required>
+      
+      <button type="button" id="submitBtn" onclick="submitForm()">Submit</button>
+      <button type="reset">Reset</button>
+    </form>
+  </div>
+
+  <script>
+    function isValidEmail(email) {
+      // Regular expression to validate email
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(email);
+    }
+
+    function submitForm() {
+      const form = document.getElementById('surveyForm');
+      if (form.checkValidity()) {
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const dob = document.getElementById('dob').value;
+        const country = document.getElementById('country').value;
+        const genderInputs = document.querySelectorAll('input[name="gender"]:checked');
+        const gender = Array.from(genderInputs).map(input => input.value).join(', ');
+        const profession = document.getElementById('profession').value;
+        const email = document.getElementById('email').value;
+        const mobile = document.getElementById('mobile').value;
+
+        if (isValidEmail(email)) {
+          const message = `First Name: ${firstName}\nLast Name: ${lastName}\nDate of Birth: ${dob}\nCountry: ${country}\nGender: ${gender}\nProfession: ${profession}\nEmail: ${email}\nMobile Number: ${mobile}`;
+
+          alert('Successfully Submitted:\n' + message);
+          form.reset();
+        } else {
+          alert('Please fill out all required fields and use a valid email address.');
+        }
+      } else {
+        alert('Please fill out all required fields.');
+      }
+    }
+  </script>
+</body>
+</html>
